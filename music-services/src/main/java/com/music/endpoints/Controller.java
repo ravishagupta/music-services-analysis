@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.music.data.DataAccess;
 import com.music.dto.Artist;
+import com.music.dto.Event;
 import com.music.dto.User;
 
 
@@ -22,21 +23,13 @@ import com.music.dto.User;
 public class Controller {
 
     /**
-     * Method handling HTTP GET requests. The returned object will be sent
-     * to the client as "text/plain" media type.
-     *
-     * @return String that will be returned as a text/plain response.
+     * Methods handling HTTP GET requests. The returned object will be sent
+     * to the client as "APPLICATION_JSON" media type.
      */
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getIt() {
-      	String textResponse = DataAccess.returnData();
-    	return textResponse;
-    }
-    
+   
     @GET
     @Path("/artists/{city}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Artist> getArtists(@PathParam("city") String city) {
     	DataAccess dataAccess = new DataAccess();
     	List<Artist> artists = dataAccess.getArtists(city);
@@ -46,11 +39,21 @@ public class Controller {
     
     @GET
     @Path("/users/{userId}")
-    @Produces(MediaType.APPLICATION_XML)
+    @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers(@PathParam("userId") int userId) {
     	DataAccess dataAccess = new DataAccess();
     	List<User> artists = dataAccess.getUsers(userId);
     	return artists;
+    	
+    }
+    
+    @GET
+    @Path("/events/{eventCity}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Event> getEvents(@PathParam("eventCity") String eventCity) {
+    	DataAccess dataAccess = new DataAccess();
+    	List<Event> events = dataAccess.getEvents(eventCity);
+    	return events;
     	
     }
 }

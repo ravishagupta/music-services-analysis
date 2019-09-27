@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.music.dto.Artist;
+import com.music.dto.Event;
 import com.music.dto.User;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -26,28 +27,6 @@ public class DataAccess {
 	    dataSource.setPassword("Sweety123");//Password
 	    return dataSource;
 	  }
-	
-	public static String returnData(){
-		try {
-			Connection myCon = getMysqlDataSource().getConnection();
-			
-			Statement statement = myCon.createStatement();
-			
-			ResultSet myRs = statement.executeQuery("select * from testtable");
-			
-			String data = "";
-			while (myRs.next()) {
-				data = data + "" + myRs.getString("UIN") + ", " + myRs.getString("Name");
-			}
-			
-			return data;
-			
-		}catch(Exception exe) {
-			exe.printStackTrace();
-		}
-		
-		return "Error!";
-	}
 	
 	public List<Artist> getArtists(String city){
 		try {
@@ -106,6 +85,39 @@ public class DataAccess {
 		}
 		List<User> users = new ArrayList<User>();
 		return users;
+	}
+
+	public List<Event> getEvents(String eventCity){
+		try {
+			Connection myCon = getMysqlDataSource().getConnection();
+			
+			Statement statement = myCon.createStatement();
+			
+			ResultSet myRs = statement.executeQuery("select * from events where event_city = '" + eventCity + "' ");
+			
+			List<Event> events = new ArrayList<Event>();
+			
+			while (myRs.next()) {
+				Event event = new Event();
+				event.setEvent_name(myRs.getString("event_name"));
+				event.setGenre(myRs.getString("genre"));
+				event.setEvent_city(myRs.getString("event_city"));
+				event.setEvent_state(myRs.getString("event_state"));
+				event.setEvent_venue(myRs.getString("event_venue"));
+				event.setEvent_date(myRs.getDate("event_date"));
+				event.setArtist_name(myRs.getString("artist_name"));
+			
+			
+				events.add(event);
+			}
+			
+			return events;
+			
+		}catch(Exception exe) {
+			exe.printStackTrace();
+		}
+		List<Event> events = new ArrayList<Event>();
+		return events;
 	}
 
 }

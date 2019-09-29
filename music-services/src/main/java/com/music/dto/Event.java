@@ -6,54 +6,70 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Event {
-	private String event_name;
-	private String genre;
-	private String event_city;
-	private String event_state;
-	private String event_venue;
-	private Date event_date;
-	private String artist_name;
-	public String getEvent_name() {
-		return event_name;
+	private String ArtistMBID;
+	private String ArtistName;
+	private String TourName;
+	private String VenueCity;
+	private String VenueState;
+	private Date EventDate;
+	private String VenueStateCode;
+	private String VenueName;
+	private String Genre;
+	
+	public String getArtistMBID() {
+		return ArtistMBID;
 	}
-	public void setEvent_name(String event_name) {
-		this.event_name = event_name;
+	public void setArtistMBID(String artistMBID) {
+		ArtistMBID = artistMBID;
+	}
+	public String getArtistName() {
+		return ArtistName;
+	}
+	public void setArtistName(String artistName) {
+		ArtistName = artistName;
+	}
+	public String getTourName() {
+		return TourName;
+	}
+	public void setTourName(String tourName) {
+		TourName = tourName;
+	}
+	public String getVenueCity() {
+		return VenueCity;
+	}
+	public void setVenueCity(String venueCity) {
+		VenueCity = venueCity;
+	}
+	public String getVenueState() {
+		return VenueState;
+	}
+	public void setVenueState(String venueState) {
+		VenueState = venueState;
+	}
+	public Date getEventDate() {
+		return EventDate;
+	}
+	public void setEventDate(Date eventDate) {
+		EventDate = eventDate;
+	}
+	public String getVenueStateCode() {
+		return VenueStateCode;
+	}
+	public void setVenueStateCode(String venueStateCode) {
+		VenueStateCode = venueStateCode;
+	}
+	public String getVenueName() {
+		return VenueName;
+	}
+	public void setVenueName(String venueName) {
+		VenueName = venueName;
 	}
 	public String getGenre() {
-		return genre;
+		return Genre;
 	}
 	public void setGenre(String genre) {
-		this.genre = genre;
+		Genre = genre;
 	}
-	public String getEvent_city() {
-		return event_city;
-	}
-	public void setEvent_city(String event_city) {
-		this.event_city = event_city;
-	}
-	public String getEvent_state() {
-		return event_state;
-	}
-	public void setEvent_state(String event_state) {
-		this.event_state = event_state;
-	}
-	public String getEvent_venue() {
-		return event_venue;
-	}
-	public void setEvent_venue(String event_venue) {
-		this.event_venue = event_venue;
-	}
-	public Date getEvent_date() {
-		return event_date;
-	}
-	public void setEvent_date(Date event_date) {
-		this.event_date = event_date;
-	}
-	public String getArtist_name() {
-		return artist_name;
-	}
-	public void setArtist_name(String artist_name) {
-		this.artist_name = artist_name;
-	}
+	
 
 }

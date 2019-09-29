@@ -9,7 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.music.data.DataAccess;
-import com.music.dto.Artist;
+import com.music.dto.ArtistCity;
+import com.music.dto.ArtistState;
 import com.music.dto.Event;
 import com.music.dto.User;
 
@@ -28,19 +29,27 @@ public class Controller {
      */
    
     @GET
-    @Path("/artists/{city}")
+    @Path("/artists/{state}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Artist> getArtists(@PathParam("city") String city) {
+    public List<ArtistState> getArtistState(@PathParam("state") String state, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
-    	List<Artist> artists = dataAccess.getArtists(city);
-    	return artists;
-    	
+    	List<ArtistState> artists = dataAccess.getArtistState(state, genre);
+    	return artists; 	
+    }
+    
+    @GET
+    @Path("/artists/{city}/{genre}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArtistCity> getArtistCity(@PathParam("city") String city, @PathParam("genre") String genre) {
+    	DataAccess dataAccess = new DataAccess();
+    	List<ArtistCity> artistSCity = dataAccess.getArtistCity(city, genre);
+    	return artistSCity; 	
     }
     
     @GET
     @Path("/users/{userId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getUsers(@PathParam("userId") int userId) {
+    public List<User> getUsers(@PathParam("userId") String userId) {
     	DataAccess dataAccess = new DataAccess();
     	List<User> artists = dataAccess.getUsers(userId);
     	return artists;
@@ -48,12 +57,12 @@ public class Controller {
     }
     
     @GET
-    @Path("/events/{eventCity}")
+    @Path("/events/{city}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> getEvents(@PathParam("eventCity") String eventCity) {
+    public List<Event> getEventsCity(@PathParam("city") String city, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
-    	List<Event> events = dataAccess.getEvents(eventCity);
-    	return events;
+    	List<Event> eventSCity = dataAccess.getEventsCity(city, genre);
+    	return eventSCity;
     	
     }
 }

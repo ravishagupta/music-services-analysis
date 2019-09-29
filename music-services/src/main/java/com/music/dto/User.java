@@ -5,26 +5,33 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	
-	private int user_id;
-	private String genre;
-	private int rank_for_genre;
-	public int getUser_id() {
-		return user_id;
+	private String UserID;
+	private String Genre;
+	private int Count;
+	private int Rank;
+	public String getUserID() {
+		return UserID;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserID(String userID) {
+		UserID = userID;
 	}
 	public String getGenre() {
-		return genre;
+		return Genre;
 	}
 	public void setGenre(String genre) {
-		this.genre = genre;
+		Genre = genre;
 	}
-	public int getRank_for_genre() {
-		return rank_for_genre;
+	public int getCount() {
+		return Count;
 	}
-	public void setRank_for_genre(int rank_for_genre) {
-		this.rank_for_genre = rank_for_genre;
+	public void setCount(int count) {
+		Count = count;
+	}
+	public int getRank() {
+		return Rank;
+	}
+	public void setRank(int rank) {
+		Rank = rank;
 	}
 	
 	

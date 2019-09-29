@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import com.music.dto.Artist;
+import com.music.dto.ArtistCity;
+import com.music.dto.ArtistState;
 import com.music.dto.Event;
 import com.music.dto.User;
 import com.mysql.cj.jdbc.MysqlDataSource;
@@ -20,32 +21,34 @@ public class DataAccess {
 
 	    // Set dataSource Properties
 	    //dataSource.setServerName("172.17.100.216");//Enter IP Address of the machine that holds the database here
-	    dataSource.setServerName("127.0.0.1");
+	    dataSource.setServerName("18.189.129.189");
 	    dataSource.setPortNumber(3306);//Port of MySql server
-	    dataSource.setDatabaseName("musiclibrary");//Name of the Database
-	    dataSource.setUser("root");//Username
-	    dataSource.setPassword("Sweety123");//Password
+	    dataSource.setDatabaseName("project");//Name of the Database
+	    dataSource.setUser("msd");//Username
+	    dataSource.setPassword("some_pass");//Password
 	    return dataSource;
 	  }
 	
-	public List<Artist> getArtists(String city){
+	public List<ArtistState> getArtistState(String state, String genre){
 		try {
 			Connection myCon = getMysqlDataSource().getConnection();
 			
 			Statement statement = myCon.createStatement();
 			
-			ResultSet myRs = statement.executeQuery("select * from artist where artist_city = '" + city + "'");
+			ResultSet myRs = statement.executeQuery("select * from ArtistState where State = '" + state + "' and Genre in ('" 
+			+ genre + "')" );
 			
-			List<Artist> artists = new ArrayList<Artist>();
+			List<ArtistState> artists = new ArrayList<ArtistState>();
 			
 			while (myRs.next()) {
-				Artist artist = new Artist();
-				artist.setArtist_id(myRs.getInt("artist_id"));
-				artist.setArtist_name(myRs.getString("artist_name"));
-				artist.setArtist_city(myRs.getString("artist_city"));
-				artist.setArtist_state(myRs.getString("artist_state"));
-				artist.setGenre(myRs.getString("genre"));
-				artist.setArtist_rank(myRs.getInt("artist_rank"));
+				ArtistState artist = new ArtistState();
+				artist.setState(myRs.getString("State"));
+				artist.setGenre(myRs.getString("Genre"));
+				artist.setArtistID(myRs.getString("ArtistID"));
+				artist.setArtistFamiliarity(myRs.getString("ArtistFamiliarity"));
+				artist.setArtistHotness(myRs.getString("ArtistHotness"));
+				artist.setOverallValue(myRs.getString("OverallValue"));
+				artist.setRank(myRs.getInt("Rank"));
 			
 				artists.add(artist);
 			}
@@ -55,25 +58,58 @@ public class DataAccess {
 		}catch(Exception exe) {
 			exe.printStackTrace();
 		}
-		List<Artist> artists = new ArrayList<Artist>();
+		List<ArtistState> artists = new ArrayList<ArtistState>();
 		return artists;
 	}
 	
-	public List<User> getUsers(int userId){
+	public List<ArtistCity> getArtistCity(String city, String genre){
 		try {
 			Connection myCon = getMysqlDataSource().getConnection();
 			
 			Statement statement = myCon.createStatement();
 			
-			ResultSet myRs = statement.executeQuery("select * from user where user_id = '" + userId + "'");
+			ResultSet myRs = statement.executeQuery("select * from ArtistCity where City = '" + city + "' and Genre in ('" 
+			+ genre + "')" );
+			
+			List<ArtistCity> artistSCity = new ArrayList<ArtistCity>();
+			
+			while (myRs.next()) {
+				ArtistCity artistCity = new ArtistCity();
+				artistCity.setCity(myRs.getString("City"));
+				artistCity.setGenre(myRs.getString("Genre"));
+				artistCity.setArtistID(myRs.getString("ArtistID"));
+				artistCity.setArtistFamiliarity(myRs.getString("ArtistFamiliarity"));
+				artistCity.setArtistHotness(myRs.getString("ArtistHotness"));
+				artistCity.setOverallValue(myRs.getString("OverallValue"));
+				artistCity.setRank(myRs.getInt("Rank"));
+			
+				artistSCity.add(artistCity);
+			}
+			
+			return artistSCity;
+			
+		}catch(Exception exe) {
+			exe.printStackTrace();
+		}
+		List<ArtistCity> artistSCity = new ArrayList<ArtistCity>();
+		return artistSCity;
+	}
+	
+	public List<User> getUsers(String userId){
+		try {
+			Connection myCon = getMysqlDataSource().getConnection();
+			Statement statement = myCon.createStatement();
+			
+			ResultSet myRs = statement.executeQuery("select * from Users where UserID = '" + userId + "' order by Rank");
 			
 			List<User> users = new ArrayList<User>();
 			
 			while (myRs.next()) {
 				User user = new User();
-				user.setUser_id(myRs.getInt("user_id"));
+				user.setUserID(myRs.getString("UserID"));
 				user.setGenre(myRs.getString("genre"));
-				user.setRank_for_genre(myRs.getInt("rank_for_genre"));
+				user.setCount(myRs.getInt("Count"));
+				user.setRank(myRs.getInt("Rank"));
 			
 				users.add(user);
 			}
@@ -87,37 +123,39 @@ public class DataAccess {
 		return users;
 	}
 
-	public List<Event> getEvents(String eventCity){
+	public List<Event> getEventsCity(String city, String genre){
 		try {
 			Connection myCon = getMysqlDataSource().getConnection();
 			
 			Statement statement = myCon.createStatement();
 			
-			ResultSet myRs = statement.executeQuery("select * from events where event_city = '" + eventCity + "' ");
+			ResultSet myRs = statement.executeQuery("select * from events where VenueCity = '" + city + "' and Genre = '" 
+			+ genre + "'");
 			
-			List<Event> events = new ArrayList<Event>();
+			List<Event> eventSCity = new ArrayList<Event>();
 			
 			while (myRs.next()) {
-				Event event = new Event();
-				event.setEvent_name(myRs.getString("event_name"));
-				event.setGenre(myRs.getString("genre"));
-				event.setEvent_city(myRs.getString("event_city"));
-				event.setEvent_state(myRs.getString("event_state"));
-				event.setEvent_venue(myRs.getString("event_venue"));
-				event.setEvent_date(myRs.getDate("event_date"));
-				event.setArtist_name(myRs.getString("artist_name"));
-			
-			
-				events.add(event);
+				Event eventCity = new Event();
+				eventCity.setArtistMBID(myRs.getString("ArtistMBID"));
+				eventCity.setArtistName(myRs.getString("ArtistName"));
+				eventCity.setTourName(myRs.getString("TourName"));
+				eventCity.setVenueCity(myRs.getString("VenueCity"));
+				eventCity.setVenueState(myRs.getString("VenueState"));
+				eventCity.setEventDate(myRs.getDate("EventDate"));
+				eventCity.setVenueStateCode(myRs.getString("VenueStateCode"));
+				eventCity.setVenueName(myRs.getString("VenueName"));
+				eventCity.setGenre(myRs.getString("Genre"));
+							
+				eventSCity.add(eventCity);
 			}
 			
-			return events;
+			return eventSCity;
 			
 		}catch(Exception exe) {
 			exe.printStackTrace();
 		}
-		List<Event> events = new ArrayList<Event>();
-		return events;
+		List<Event> eventSCity = new ArrayList<Event>();
+		return eventSCity;
 	}
 
 }

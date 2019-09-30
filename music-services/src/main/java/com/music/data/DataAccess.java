@@ -157,5 +157,40 @@ public class DataAccess {
 		List<Event> eventSCity = new ArrayList<Event>();
 		return eventSCity;
 	}
+	
+	public List<Event> getEventsState(String state, String genre){
+		try {
+			Connection myCon = getMysqlDataSource().getConnection();
+			
+			Statement statement = myCon.createStatement();
+			
+			ResultSet myRs = statement.executeQuery("select * from events where VenueState = '" + state + "' and Genre = '" 
+			+ genre + "'");
+			
+			List<Event> eventSState = new ArrayList<Event>();
+			
+			while (myRs.next()) {
+				Event eventState = new Event();
+				eventState.setArtistMBID(myRs.getString("ArtistMBID"));
+				eventState.setArtistName(myRs.getString("ArtistName"));
+				eventState.setTourName(myRs.getString("TourName"));
+				eventState.setVenueCity(myRs.getString("VenueCity"));
+				eventState.setVenueState(myRs.getString("VenueState"));
+				eventState.setEventDate(myRs.getDate("EventDate"));
+				eventState.setVenueStateCode(myRs.getString("VenueStateCode"));
+				eventState.setVenueName(myRs.getString("VenueName"));
+				eventState.setGenre(myRs.getString("Genre"));
+							
+				eventSState.add(eventState);
+			}
+			
+			return eventSState;
+			
+		}catch(Exception exe) {
+			exe.printStackTrace();
+		}
+		List<Event> eventSState = new ArrayList<Event>();
+		return eventSState;
+	}
 
 }

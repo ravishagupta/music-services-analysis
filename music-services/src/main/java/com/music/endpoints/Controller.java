@@ -29,7 +29,7 @@ public class Controller {
      */
    
     @GET
-    @Path("/artists/{state}/{genre}")
+    @Path("/artistsState/{state}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtistState> getArtistState(@PathParam("state") String state, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -38,7 +38,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/artists/{city}/{genre}")
+    @Path("/artistsCity/{city}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtistCity> getArtistCity(@PathParam("city") String city, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -57,12 +57,22 @@ public class Controller {
     }
     
     @GET
-    @Path("/events/{city}/{genre}")
+    @Path("/eventsCity/{city}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Event> getEventsCity(@PathParam("city") String city, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
     	List<Event> eventSCity = dataAccess.getEventsCity(city, genre);
     	return eventSCity;
+    	
+    }
+    
+    @GET
+    @Path("/eventsState/{state}/{genre}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Event> getEventsState(@PathParam("state") String city, @PathParam("genre") String genre) {
+    	DataAccess dataAccess = new DataAccess();
+    	List<Event> eventSState = dataAccess.getEventsState(city, genre);
+    	return eventSState;
     	
     }
 }

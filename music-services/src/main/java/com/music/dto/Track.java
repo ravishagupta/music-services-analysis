@@ -3,7 +3,6 @@ package com.music.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-
 public class Track {
 	private String TrackID;
 	private String TrackTitle;

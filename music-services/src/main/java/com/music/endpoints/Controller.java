@@ -92,7 +92,7 @@ public class Controller {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Track> getTracksForSearch(@PathParam("keyword") String keyword) {
     	DataAccess dataAccess = new DataAccess();
-    	List<Track> tracks = dataAccess.getTracks(keyword);
+    	List<Track> tracks = dataAccess.getTracksForSearch(keyword);
     	return tracks;
     	
     }

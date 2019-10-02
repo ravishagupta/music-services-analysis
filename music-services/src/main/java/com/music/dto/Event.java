@@ -1,7 +1,5 @@
 package com.music.dto;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -11,11 +9,10 @@ public class Event {
 	private String TourName;
 	private String VenueCity;
 	private String VenueState;
-	private Date EventDate;
+	private String EventDate;
 	private String VenueStateCode;
 	private String VenueName;
 	private String Genre;
-	
 	public String getArtistMBID() {
 		return ArtistMBID;
 	}
@@ -46,10 +43,10 @@ public class Event {
 	public void setVenueState(String venueState) {
 		VenueState = venueState;
 	}
-	public Date getEventDate() {
+	public String getEventDate() {
 		return EventDate;
 	}
-	public void setEventDate(Date eventDate) {
+	public void setEventDate(String eventDate) {
 		EventDate = eventDate;
 	}
 	public String getVenueStateCode() {

@@ -20,6 +20,7 @@ public class Track {
 	private String City;
 	private String State;
 	private String Genre;
+	
 	public String getTrackID() {
 		return TrackID;
 	}

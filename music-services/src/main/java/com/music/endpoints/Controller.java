@@ -12,6 +12,7 @@ import com.music.data.DataAccess;
 import com.music.dto.ArtistCity;
 import com.music.dto.ArtistState;
 import com.music.dto.Event;
+import com.music.dto.Track;
 import com.music.dto.User;
 
 
@@ -51,8 +52,8 @@ public class Controller {
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers(@PathParam("userId") String userId) {
     	DataAccess dataAccess = new DataAccess();
-    	List<User> artists = dataAccess.getUsers(userId);
-    	return artists;
+    	List<User> users = dataAccess.getUsers(userId);
+    	return users;
     	
     }
     
@@ -69,10 +70,32 @@ public class Controller {
     @GET
     @Path("/eventsState/{state}/{genre}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> getEventsState(@PathParam("state") String city, @PathParam("genre") String genre) {
+    public List<Event> getEventsState(@PathParam("state") String state, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
-    	List<Event> eventSState = dataAccess.getEventsState(city, genre);
+    	List<Event> eventSState = dataAccess.getEventsState(state, genre);
     	return eventSState;
     	
     }
+    
+    @GET
+    @Path("/tracks/{artistId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Track> getTracks(@PathParam("artistId") String artistId) {
+    	DataAccess dataAccess = new DataAccess();
+    	List<Track> tracks = dataAccess.getTracks(artistId);
+    	return tracks;
+    	
+    }
+    
+    @GET
+    @Path("/tracksSearch/{keyword}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Track> getTracksForSearch(@PathParam("keyword") String keyword) {
+    	DataAccess dataAccess = new DataAccess();
+    	List<Track> tracks = dataAccess.getTracks(keyword);
+    	return tracks;
+    	
+    }
+    
+    
 }

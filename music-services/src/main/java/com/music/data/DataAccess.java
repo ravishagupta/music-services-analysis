@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import com.music.dto.ArtistCity;
 import com.music.dto.ArtistState;
 import com.music.dto.Event;
+import com.music.dto.Track;
 import com.music.dto.User;
 import com.mysql.cj.jdbc.MysqlDataSource;
 
@@ -129,7 +130,7 @@ public class DataAccess {
 			
 			Statement statement = myCon.createStatement();
 			
-			ResultSet myRs = statement.executeQuery("select * from events where VenueCity = '" + city + "' and Genre = '" 
+			ResultSet myRs = statement.executeQuery("select * from Events where VenueCity = '" + city + "' and Genre = '" 
 			+ genre + "'");
 			
 			List<Event> eventSCity = new ArrayList<Event>();
@@ -141,7 +142,7 @@ public class DataAccess {
 				eventCity.setTourName(myRs.getString("TourName"));
 				eventCity.setVenueCity(myRs.getString("VenueCity"));
 				eventCity.setVenueState(myRs.getString("VenueState"));
-				eventCity.setEventDate(myRs.getDate("EventDate"));
+				eventCity.setEventDate(myRs.getString("EventDate"));
 				eventCity.setVenueStateCode(myRs.getString("VenueStateCode"));
 				eventCity.setVenueName(myRs.getString("VenueName"));
 				eventCity.setGenre(myRs.getString("Genre"));
@@ -164,7 +165,7 @@ public class DataAccess {
 			
 			Statement statement = myCon.createStatement();
 			
-			ResultSet myRs = statement.executeQuery("select * from events where VenueState = '" + state + "' and Genre = '" 
+			ResultSet myRs = statement.executeQuery("select * from Events where VenueState = '" + state + "' and Genre = '" 
 			+ genre + "'");
 			
 			List<Event> eventSState = new ArrayList<Event>();
@@ -176,7 +177,7 @@ public class DataAccess {
 				eventState.setTourName(myRs.getString("TourName"));
 				eventState.setVenueCity(myRs.getString("VenueCity"));
 				eventState.setVenueState(myRs.getString("VenueState"));
-				eventState.setEventDate(myRs.getDate("EventDate"));
+				eventState.setEventDate(myRs.getString("EventDate"));
 				eventState.setVenueStateCode(myRs.getString("VenueStateCode"));
 				eventState.setVenueName(myRs.getString("VenueName"));
 				eventState.setGenre(myRs.getString("Genre"));
@@ -191,6 +192,86 @@ public class DataAccess {
 		}
 		List<Event> eventSState = new ArrayList<Event>();
 		return eventSState;
+	}
+	
+	public List<Track> getTracks(String artistId){
+		try {
+			Connection myCon = getMysqlDataSource().getConnection();
+			Statement statement = myCon.createStatement();
+			
+			ResultSet myRs = statement.executeQuery("select * from Tracks where ArtistID = '" + artistId 
+					+ "' order by ArtistFamiliarity,ArtistHotness desc");
+			
+			List<Track> tracks = new ArrayList<Track>();
+			
+			while (myRs.next()) {
+				Track track = new Track();
+				track.setTrackID(myRs.getString("TrackID"));
+				track.setTrackTitle(myRs.getString("TrackTitle"));
+				track.setSongID(myRs.getString("SongID"));
+				track.setAlbumName(myRs.getString("AlbumName"));
+				track.setArtistID(myRs.getString("ArtistID"));
+				track.setArtistMBID(myRs.getString("ArtistMBID"));
+				track.setArtistName(myRs.getString("ArtistName"));
+				track.setDuration(myRs.getFloat("Duration"));
+				track.setArtistFamiliarity(myRs.getFloat("ArtistFamiliarity"));
+				track.setArtistHotness(myRs.getFloat("ArtistHotness"));
+				track.setYear(myRs.getInt("Year"));
+				track.setLocation(myRs.getString("Location"));
+				track.setCity(myRs.getString("City"));
+				track.setState(myRs.getString("State"));
+				track.setGenre(myRs.getString("Genre"));
+			
+				tracks.add(track);
+			}
+			
+			return tracks;
+			
+		}catch(Exception exe) {
+			exe.printStackTrace();
+		}
+		List<Track> tracks = new ArrayList<Track>();
+		return tracks;
+	}
+	
+	public List<Track> getTracksForSearch(String keyword){
+		try {
+			Connection myCon = getMysqlDataSource().getConnection();
+			Statement statement = myCon.createStatement();
+			
+			ResultSet myRs = statement.executeQuery("select * from Tracks where lower(Genre) like '%" 
+			+ keyword + "%' limit 10");
+			
+			List<Track> tracks = new ArrayList<Track>();
+			
+			while (myRs.next()) {
+				Track track = new Track();
+				track.setTrackID(myRs.getString("TrackID"));
+				track.setTrackTitle(myRs.getString("TrackTitle"));
+				track.setSongID(myRs.getString("SongID"));
+				track.setAlbumName(myRs.getString("AlbumName"));
+				track.setArtistID(myRs.getString("ArtistID"));
+				track.setArtistMBID(myRs.getString("ArtistMBID"));
+				track.setArtistName(myRs.getString("ArtistName"));
+				track.setDuration(myRs.getFloat("Duration"));
+				track.setArtistFamiliarity(myRs.getFloat("ArtistFamiliarity"));
+				track.setArtistHotness(myRs.getFloat("ArtistHotness"));
+				track.setYear(myRs.getInt("Year"));
+				track.setLocation(myRs.getString("Location"));
+				track.setCity(myRs.getString("City"));
+				track.setState(myRs.getString("State"));
+				track.setGenre(myRs.getString("Genre"));
+			
+				tracks.add(track);
+			}
+			
+			return tracks;
+			
+		}catch(Exception exe) {
+			exe.printStackTrace();
+		}
+		List<Track> tracks = new ArrayList<Track>();
+		return tracks;
 	}
 
 }

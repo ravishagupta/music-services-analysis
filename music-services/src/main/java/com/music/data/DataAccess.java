@@ -240,6 +240,9 @@ public class DataAccess {
 			Statement statement = myCon.createStatement();
 			
 			ResultSet myRs = statement.executeQuery("select * from Tracks where lower(Genre) like '%" 
+			+ keyword + "%' or lower(ArtistName) like '%" 
+			+ keyword + "%' or lower(TrackTitle) like '%" 
+			+ keyword + "%' or lower(AlbumName) like '%" 
 			+ keyword + "%' limit 10");
 			
 			List<Track> tracks = new ArrayList<Track>();

@@ -3,7 +3,7 @@ package com.music.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Event {
+public class Event { //Defining attributes of table Events
 	private String ArtistMBID;
 	private String ArtistName;
 	private String TourName;

@@ -30,7 +30,7 @@ public class Controller {
      */
    
     @GET
-    @Path("/artistsState/{state}/{genre}")
+    @Path("/artistsState/{state}/{genre}")  //Path to search artist details with state and genre
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtistState> getArtistState(@PathParam("state") String state, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -39,7 +39,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/artistsCity/{city}/{genre}")
+    @Path("/artistsCity/{city}/{genre}") //Path to search artist details with city and genre
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtistCity> getArtistCity(@PathParam("city") String city, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -48,7 +48,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/users/{userId}")
+    @Path("/users/{userId}") //Path to search user details with user ID
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers(@PathParam("userId") String userId) {
     	DataAccess dataAccess = new DataAccess();
@@ -58,7 +58,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/eventsCity/{city}/{genre}")
+    @Path("/eventsCity/{city}/{genre}") //Path to search events details with city and genre
     @Produces(MediaType.APPLICATION_JSON)
     public List<Event> getEventsCity(@PathParam("city") String city, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -68,7 +68,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/eventsState/{state}/{genre}")
+    @Path("/eventsState/{state}/{genre}") //Path to search events details with state and genre
     @Produces(MediaType.APPLICATION_JSON)
     public List<Event> getEventsState(@PathParam("state") String state, @PathParam("genre") String genre) {
     	DataAccess dataAccess = new DataAccess();
@@ -78,7 +78,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/tracks/{artistId}")
+    @Path("/tracks/{artistId}") //Path to search tracks details with artist ID
     @Produces(MediaType.APPLICATION_JSON)
     public List<Track> getTracks(@PathParam("artistId") String artistId) {
     	DataAccess dataAccess = new DataAccess();
@@ -88,7 +88,7 @@ public class Controller {
     }
     
     @GET
-    @Path("/tracksSearch/{keyword}")
+    @Path("/tracksSearch/{keyword}") //Path to search tracks details with keyword
     @Produces(MediaType.APPLICATION_JSON)
     public List<Track> getTracksForSearch(@PathParam("keyword") String keyword) {
     	DataAccess dataAccess = new DataAccess();

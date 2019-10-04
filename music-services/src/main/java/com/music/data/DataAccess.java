@@ -21,8 +21,7 @@ public class DataAccess {
 	    MysqlDataSource dataSource = new MysqlDataSource();
 
 	    // Set dataSource Properties
-	    //dataSource.setServerName("172.17.100.216");//Enter IP Address of the machine that holds the database here
-	    dataSource.setServerName("18.189.129.189");
+	    dataSource.setServerName("18.189.129.189");//Enter IP Address of the machine that holds the database here
 	    dataSource.setPortNumber(3306);//Port of MySql server
 	    dataSource.setDatabaseName("project");//Name of the Database
 	    dataSource.setUser("msd");//Username
@@ -30,19 +29,19 @@ public class DataAccess {
 	    return dataSource;
 	  }
 	
-	public List<ArtistState> getArtistState(String state, String genre){
+	public List<ArtistState> getArtistState(String state, String genre){ //Takes state and genre input
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
 			
-			Statement statement = myCon.createStatement();
+			Statement statement = myCon.createStatement(); //Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from ArtistState where State = '" + state + "' and Genre in ('" 
-			+ genre + "')" );
+			+ genre + "') order by Rank limit 3" ); //SQL query to get data from a particular state in the genre given
 			
-			List<ArtistState> artists = new ArrayList<ArtistState>();
+			List<ArtistState> artists = new ArrayList<ArtistState>(); //Create a new list of ArtistSate to store details
 			
 			while (myRs.next()) {
-				ArtistState artist = new ArtistState();
+				ArtistState artist = new ArtistState(); //Create a new object of ArtistSate to get details
 				artist.setState(myRs.getString("State"));
 				artist.setGenre(myRs.getString("Genre"));
 				artist.setArtistID(myRs.getString("ArtistID"));
@@ -51,7 +50,7 @@ public class DataAccess {
 				artist.setOverallValue(myRs.getString("OverallValue"));
 				artist.setRank(myRs.getInt("Rank"));
 			
-				artists.add(artist);
+				artists.add(artist); //adding ArtistSate object to the ArtistSate list
 			}
 			
 			return artists;
@@ -63,19 +62,19 @@ public class DataAccess {
 		return artists;
 	}
 	
-	public List<ArtistCity> getArtistCity(String city, String genre){
+	public List<ArtistCity> getArtistCity(String city, String genre){ //Takes city and genre input
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
 			
-			Statement statement = myCon.createStatement();
+			Statement statement = myCon.createStatement(); //Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from ArtistCity where City = '" + city + "' and Genre in ('" 
-			+ genre + "')" );
+			+ genre + "') order by Rank limit 3" ); //SQL query to get data from a particular city in the genre given
 			
-			List<ArtistCity> artistSCity = new ArrayList<ArtistCity>();
+			List<ArtistCity> artistSCity = new ArrayList<ArtistCity>(); //Create a new list of ArtistCity to store details
 			
 			while (myRs.next()) {
-				ArtistCity artistCity = new ArtistCity();
+				ArtistCity artistCity = new ArtistCity(); //Create a new object of ArtistCity to get details
 				artistCity.setCity(myRs.getString("City"));
 				artistCity.setGenre(myRs.getString("Genre"));
 				artistCity.setArtistID(myRs.getString("ArtistID"));
@@ -84,7 +83,7 @@ public class DataAccess {
 				artistCity.setOverallValue(myRs.getString("OverallValue"));
 				artistCity.setRank(myRs.getInt("Rank"));
 			
-				artistSCity.add(artistCity);
+				artistSCity.add(artistCity); //adding ArtistCity object to the ArtistCity list
 			}
 			
 			return artistSCity;
@@ -96,23 +95,25 @@ public class DataAccess {
 		return artistSCity;
 	}
 	
-	public List<User> getUsers(String userId){
+	public List<User> getUsers(String userId){ //Takes user ID as input
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
-			Statement statement = myCon.createStatement();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
+			
+			Statement statement = myCon.createStatement();//Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from Users where UserID = '" + userId + "' order by Rank");
+			//SQL query to get data from a particular user ID and sort it by Rank
 			
-			List<User> users = new ArrayList<User>();
+			List<User> users = new ArrayList<User>(); //Create a new list of User to store details
 			
 			while (myRs.next()) {
-				User user = new User();
+				User user = new User(); //Create a new object of User to get details
 				user.setUserID(myRs.getString("UserID"));
 				user.setGenre(myRs.getString("genre"));
 				user.setCount(myRs.getInt("Count"));
 				user.setRank(myRs.getInt("Rank"));
 			
-				users.add(user);
+				users.add(user); //adding User object to the User list
 			}
 			
 			return users;
@@ -124,19 +125,20 @@ public class DataAccess {
 		return users;
 	}
 
-	public List<Event> getEventsCity(String city, String genre){
+	public List<Event> getEventsCity(String city, String genre){ //Takes city and genre input for the Event
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
 			
-			Statement statement = myCon.createStatement();
+			Statement statement = myCon.createStatement(); //Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from Events where VenueCity = '" + city + "' and Genre = '" 
-			+ genre + "'");
+			+ genre + "' order by EventDate"); 
+			//SQL query to get data from a particular city in the genre given for Events and sort by EventDate
 			
-			List<Event> eventSCity = new ArrayList<Event>();
+			List<Event> eventSCity = new ArrayList<Event>(); //Create a new list of Event to store details
 			
 			while (myRs.next()) {
-				Event eventCity = new Event();
+				Event eventCity = new Event(); //Create a new object of Event to get details
 				eventCity.setArtistMBID(myRs.getString("ArtistMBID"));
 				eventCity.setArtistName(myRs.getString("ArtistName"));
 				eventCity.setTourName(myRs.getString("TourName"));
@@ -147,7 +149,7 @@ public class DataAccess {
 				eventCity.setVenueName(myRs.getString("VenueName"));
 				eventCity.setGenre(myRs.getString("Genre"));
 							
-				eventSCity.add(eventCity);
+				eventSCity.add(eventCity); //adding Event object to the Event list
 			}
 			
 			return eventSCity;
@@ -159,19 +161,20 @@ public class DataAccess {
 		return eventSCity;
 	}
 	
-	public List<Event> getEventsState(String state, String genre){
+	public List<Event> getEventsState(String state, String genre){ //Takes state and genre input for the Event
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
 			
-			Statement statement = myCon.createStatement();
+			Statement statement = myCon.createStatement(); //Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from Events where VenueState = '" + state + "' and Genre = '" 
-			+ genre + "'");
+			+ genre + "' order by EventDate"); 
+			//SQL query to get data from a particular state in the genre given for Events and sort by EventDate
 			
-			List<Event> eventSState = new ArrayList<Event>();
+			List<Event> eventSState = new ArrayList<Event>(); //Create a new list of Event to store details
 			
 			while (myRs.next()) {
-				Event eventState = new Event();
+				Event eventState = new Event(); //Create a new object of Event to get details
 				eventState.setArtistMBID(myRs.getString("ArtistMBID"));
 				eventState.setArtistName(myRs.getString("ArtistName"));
 				eventState.setTourName(myRs.getString("TourName"));
@@ -182,7 +185,7 @@ public class DataAccess {
 				eventState.setVenueName(myRs.getString("VenueName"));
 				eventState.setGenre(myRs.getString("Genre"));
 							
-				eventSState.add(eventState);
+				eventSState.add(eventState); //adding Event object to the Event list
 			}
 			
 			return eventSState;
@@ -194,18 +197,20 @@ public class DataAccess {
 		return eventSState;
 	}
 	
-	public List<Track> getTracks(String artistId){
+	public List<Track> getTracks(String artistId){ //Takes artist ID as input
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
-			Statement statement = myCon.createStatement();
+			Connection myCon = getMysqlDataSource().getConnection();//Connection with AWS SQL server
+			
+			Statement statement = myCon.createStatement();//Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from Tracks where ArtistID = '" + artistId 
-					+ "' order by ArtistFamiliarity,ArtistHotness desc");
+					+ "' order by ArtistFamiliarity,ArtistHotness desc  limit 3");
+			//SQL query to get data from a particular artist ID and sort it by ArtistFamiliarity and ArtistHotness with 3 output
 			
-			List<Track> tracks = new ArrayList<Track>();
+			List<Track> tracks = new ArrayList<Track>(); //Create a new list of Track to store details
 			
 			while (myRs.next()) {
-				Track track = new Track();
+				Track track = new Track(); //Create a new object of Track to get details
 				track.setTrackID(myRs.getString("TrackID"));
 				track.setTrackTitle(myRs.getString("TrackTitle"));
 				track.setSongID(myRs.getString("SongID"));
@@ -222,7 +227,7 @@ public class DataAccess {
 				track.setState(myRs.getString("State"));
 				track.setGenre(myRs.getString("Genre"));
 			
-				tracks.add(track);
+				tracks.add(track); //adding Track object to the Track list
 			}
 			
 			return tracks;
@@ -234,21 +239,23 @@ public class DataAccess {
 		return tracks;
 	}
 	
-	public List<Track> getTracksForSearch(String keyword){
+	public List<Track> getTracksForSearch(String keyword){ //Takes keyword for search as input
 		try {
-			Connection myCon = getMysqlDataSource().getConnection();
-			Statement statement = myCon.createStatement();
+			Connection myCon = getMysqlDataSource().getConnection(); //Connection with AWS SQL server
+			
+			Statement statement = myCon.createStatement(); //Connection with AWS SQL server
 			
 			ResultSet myRs = statement.executeQuery("select * from Tracks where lower(Genre) like '%" 
 			+ keyword + "%' or lower(ArtistName) like '%" 
 			+ keyword + "%' or lower(TrackTitle) like '%" 
 			+ keyword + "%' or lower(AlbumName) like '%" 
 			+ keyword + "%' limit 10");
+			//SQL query to get matching results with the keyword and displaying 10 output
 			
-			List<Track> tracks = new ArrayList<Track>();
+			List<Track> tracks = new ArrayList<Track>(); //Create a new list of Track to store details
 			
 			while (myRs.next()) {
-				Track track = new Track();
+				Track track = new Track(); //Create a new object of Track to get details
 				track.setTrackID(myRs.getString("TrackID"));
 				track.setTrackTitle(myRs.getString("TrackTitle"));
 				track.setSongID(myRs.getString("SongID"));
@@ -265,10 +272,10 @@ public class DataAccess {
 				track.setState(myRs.getString("State"));
 				track.setGenre(myRs.getString("Genre"));
 			
-				tracks.add(track);
+				tracks.add(track); //adding Track object to the Track list
 			}
 			
-			return tracks;
+			return tracks; 
 			
 		}catch(Exception exe) {
 			exe.printStackTrace();

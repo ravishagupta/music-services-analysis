@@ -3,7 +3,7 @@ package com.music.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class User {
+public class User { //Defining attributes of table Users
 	
 	private String UserID;
 	private String Genre;

@@ -11,7 +11,7 @@ public class ArtistState { //Defining attributes of table ArtistState
 	private String ArtistFamiliarity;
 	private String ArtistHotness;
 	private String OverallValue;
-	private int Rank;
+	private double Rank;
 	public String getState() {
 		return State;
 	}
@@ -48,10 +48,10 @@ public class ArtistState { //Defining attributes of table ArtistState
 	public void setOverallValue(String overallValue) {
 		OverallValue = overallValue;
 	}
-	public int getRank() {
+	public double getRank() {
 		return Rank;
 	}
-	public void setRank(int rank) {
+	public void setRank(double rank) {
 		Rank = rank;
 	}
 	

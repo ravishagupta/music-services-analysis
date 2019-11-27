@@ -3,115 +3,112 @@ package com.music.dto;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Track { //Defining attributes of table Tracks
-	private String TrackID;
-	private String TrackTitle;
-	private String SongID;
-	private String AlbumName;
-	private String ArtistID;
-	private String ArtistMBID;
-	private String ArtistName;
-	private double Duration;
-	private double ArtistFamiliarity;
-	private double ArtistHotness;
-	private int Year;
-	private String Location;
-	private String City;
-	private String State;
-	private String Genre;
+public class TrackMongo { //Defining attributes of table Tracks
+	private String trackID;
+	private String trackTitle;
+	private String songID;
+	private String albumName;
+	private String artistID;
+	private String artistMBID;
+	private String artistName;
+	private double duration;
+	private double artistFamiliarity;
+	private double artistHotness;
+	private int year;
+	private String location;
+	private String city;
+	private String state;
+	private String genre;
 	
 	public String getTrackID() {
-		return TrackID;
+		return trackID;
 	}
 	public void setTrackID(String trackID) {
-		this.TrackID = trackID;
+		this.trackID = trackID;
 	}
 	public String getTrackTitle() {
-		return TrackTitle;
+		return trackTitle;
 	}
 	public void setTrackTitle(String trackTitle) {
-		this.TrackTitle = trackTitle;
+		this.trackTitle = trackTitle;
 	}
 	public String getSongID() {
-		return SongID;
+		return songID;
 	}
 	public void setSongID(String songID) {
-		this.SongID = songID;
+		this.songID = songID;
 	}
 	public String getAlbumName() {
-		return AlbumName;
+		return albumName;
 	}
 	public void setAlbumName(String albumName) {
-		this.AlbumName = albumName;
+		this.albumName = albumName;
 	}
 	public String getArtistID() {
-		return ArtistID;
+		return artistID;
 	}
 	public void setArtistID(String artistID) {
-		this.ArtistID = artistID;
+		this.artistID = artistID;
 	}
 	public String getArtistMBID() {
-		return ArtistMBID;
+		return artistMBID;
 	}
 	public void setArtistMBID(String artistMBID) {
-		this.ArtistMBID = artistMBID;
+		this.artistMBID = artistMBID;
 	}
 	public String getArtistName() {
-		return ArtistName;
+		return artistName;
 	}
 	public void setArtistName(String artistName) {
-		this.ArtistName = artistName;
+		this.artistName = artistName;
 	}
 	public double getDuration() {
-		return Duration;
+		return duration;
 	}
 	public void setDuration(double duration) {
-		this.Duration = duration;
+		this.duration = duration;
 	}
 	public double getArtistFamiliarity() {
-		return ArtistFamiliarity;
+		return artistFamiliarity;
 	}
 	public void setArtistFamiliarity(double artistFamiliarity) {
-		this.ArtistFamiliarity = artistFamiliarity;
+		this.artistFamiliarity = artistFamiliarity;
 	}
 	public double getArtistHotness() {
-		return ArtistHotness;
+		return artistHotness;
 	}
 	public void setArtistHotness(double artistHotness) {
-		this.ArtistHotness = artistHotness;
+		this.artistHotness = artistHotness;
 	}
 	public int getYear() {
-		return Year;
+		return year;
 	}
 	public void setYear(int year) {
-		this.Year = year;
+		this.year = year;
 	}
 	public String getLocation() {
-		return Location;
+		return location;
 	}
 	public void setLocation(String location) {
-		this.Location = location;
+		this.location = location;
 	}
 	public String getCity() {
-		return City;
+		return city;
 	}
 	public void setCity(String city) {
-		this.City = city;
+		this.city = city;
 	}
 	public String getState() {
-		return State;
+		return state;
 	}
 	public void setState(String state) {
-		this.State = state;
+		this.state = state;
 	}
 	public String getGenre() {
-		return Genre;
+		return genre;
 	}
 	public void setGenre(String genre) {
-		this.Genre = genre;
+		this.genre = genre;
 	}
-	
-	
-	
 
 }

@@ -8,7 +8,7 @@ public class User { //Defining attributes of table Users
 	private String UserID;
 	private String Genre;
 	private int Count;
-	private int Rank;
+	private double Rank;
 	public String getUserID() {
 		return UserID;
 	}
@@ -27,10 +27,10 @@ public class User { //Defining attributes of table Users
 	public void setCount(int count) {
 		Count = count;
 	}
-	public int getRank() {
+	public double getRank() {
 		return Rank;
 	}
-	public void setRank(int rank) {
+	public void setRank(double rank) {
 		Rank = rank;
 	}
 	
